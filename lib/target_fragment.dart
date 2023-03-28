@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:sight_calibrator/data/scope.dart';
+import 'package:sight_calibrator/data/target.dart';
 
-class ScopeFragment extends StatefulWidget {
-  final ScopeDao scopeDao;
+class TargetFragment extends StatefulWidget {
+  final TargetDao targetDao;
 
-  const ScopeFragment({super.key, required this.scopeDao});
+  const TargetFragment({super.key, required this.targetDao});
 
   @override
-  State<ScopeFragment> createState() => _ScopeFragmentState();
+  State<TargetFragment> createState() => _TargetFragmentState();
 }
 
-class _ScopeFragmentState extends State<ScopeFragment> {
+class _TargetFragmentState extends State<TargetFragment> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  final _inchesPerClickController = TextEditingController();
-  final _forDistanceController = TextEditingController();
+  final _sizeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("New scope")),
+        appBar: AppBar(title: const Text("New target")),
         body: Form(
             key: _formKey,
             child: Padding(
@@ -42,30 +41,10 @@ class _ScopeFragmentState extends State<ScopeFragment> {
                   ),
                   const SizedBox(height: 6),
                   TextFormField(
-                    controller: _inchesPerClickController,
-                    textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(
-                        labelText: "Inches per click",
-                        border: OutlineInputBorder(),
-                        helperText: ""),
-                    maxLines: 1,
-                    keyboardType: TextInputType.number,
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return "Field is required.";
-                      }
-                      if (!RegExp(r"^(\d+\.)?\d+$").hasMatch(value)) {
-                        return "Invalid number.";
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 6),
-                  TextFormField(
-                    controller: _forDistanceController,
+                    controller: _sizeController,
                     textInputAction: TextInputAction.done,
                     decoration: const InputDecoration(
-                        labelText: "For distance (yards)",
+                        labelText: "Diameter of the target (inches)",
                         border: OutlineInputBorder(),
                         helperText: ""),
                     maxLines: 1,
@@ -84,11 +63,9 @@ class _ScopeFragmentState extends State<ScopeFragment> {
                   ElevatedButton.icon(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        Scope scope = Scope.create(
-                            _nameController.text,
-                            double.parse(_inchesPerClickController.text),
-                            double.parse(_forDistanceController.text));
-                        await widget.scopeDao.insertOne(scope);
+                        Target target = Target.create(_nameController.text,
+                            double.parse(_sizeController.text));
+                        await widget.targetDao.insertOne(target);
                         if (!context.mounted) return;
                         Navigator.of(context).pop();
                       }

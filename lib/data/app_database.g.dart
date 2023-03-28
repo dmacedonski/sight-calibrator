@@ -63,6 +63,8 @@ class _$AppDatabase extends AppDatabase {
 
   ScopeDao? _scopeDaoInstance;
 
+  TargetDao? _targetDaoInstance;
+
   Future<sqflite.Database> open(
     String path,
     List<Migration> migrations, [
@@ -86,6 +88,8 @@ class _$AppDatabase extends AppDatabase {
       onCreate: (database, version) async {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `Scope` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `inchesPerClick` REAL NOT NULL, `forDistance` REAL NOT NULL)');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `Target` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `size` REAL NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -96,6 +100,11 @@ class _$AppDatabase extends AppDatabase {
   @override
   ScopeDao get scopeDao {
     return _scopeDaoInstance ??= _$ScopeDao(database, changeListener);
+  }
+
+  @override
+  TargetDao get targetDao {
+    return _targetDaoInstance ??= _$TargetDao(database, changeListener);
   }
 }
 
@@ -156,5 +165,60 @@ class _$ScopeDao extends ScopeDao {
   @override
   Future<void> deleteOne(Scope scope) async {
     await _scopeDeletionAdapter.delete(scope);
+  }
+}
+
+class _$TargetDao extends TargetDao {
+  _$TargetDao(
+    this.database,
+    this.changeListener,
+  )   : _queryAdapter = QueryAdapter(database, changeListener),
+        _targetInsertionAdapter = InsertionAdapter(
+            database,
+            'Target',
+            (Target item) => <String, Object?>{
+                  'id': item.id,
+                  'name': item.name,
+                  'size': item.size
+                },
+            changeListener),
+        _targetDeletionAdapter = DeletionAdapter(
+            database,
+            'Target',
+            ['id'],
+            (Target item) => <String, Object?>{
+                  'id': item.id,
+                  'name': item.name,
+                  'size': item.size
+                },
+            changeListener);
+
+  final sqflite.DatabaseExecutor database;
+
+  final StreamController<String> changeListener;
+
+  final QueryAdapter _queryAdapter;
+
+  final InsertionAdapter<Target> _targetInsertionAdapter;
+
+  final DeletionAdapter<Target> _targetDeletionAdapter;
+
+  @override
+  Stream<List<Target>> findAll() {
+    return _queryAdapter.queryListStream('SELECT * FROM Target',
+        mapper: (Map<String, Object?> row) => Target(
+            row['id'] as int?, row['name'] as String, row['size'] as double),
+        queryableName: 'Target',
+        isView: false);
+  }
+
+  @override
+  Future<void> insertOne(Target target) async {
+    await _targetInsertionAdapter.insert(target, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> deleteOne(Target target) async {
+    await _targetDeletionAdapter.delete(target);
   }
 }

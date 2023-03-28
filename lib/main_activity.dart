@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sight_calibrator/data/app_database.dart';
 import 'package:sight_calibrator/scopes_fragment.dart';
+import 'package:sight_calibrator/targets_fragment.dart';
 
 class MainActivity extends StatefulWidget {
   final AppDatabase db;
@@ -23,7 +24,7 @@ class _MainActivityState extends State<MainActivity> {
       body: <Widget>[
         const Text("Session"),
         ScopesFragment(scopeDao: widget.db.scopeDao),
-        const Text("Targets"),
+        TargetsFragment(targetDao: widget.db.targetDao),
       ][_selectedFragmentIndex],
       bottomNavigationBar: NavigationBar(
         destinations: const <Widget>[
