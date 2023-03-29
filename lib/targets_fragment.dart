@@ -51,7 +51,7 @@ class _TargetsFragmentState extends State<TargetsFragment> {
                     child: ListTile(
                         title: Text(targets[index].name),
                         subtitle: Text(
-                            "Target diameter: ${targets[index].size} inches.")));
+                            "Target with diameter ${targets[index].size} inches for distance ${targets[index].distance} yards.")));
               });
         },
       ),

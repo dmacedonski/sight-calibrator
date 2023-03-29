@@ -1,13 +1,19 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:sight_calibrator/data/scope.dart';
 import 'package:sight_calibrator/data/target.dart';
+import 'package:sight_calibrator/mark_hits_fragment.dart';
 
 class SessionFragment extends StatefulWidget {
   final ScopeDao scopeDao;
   final TargetDao targetDao;
+  final CameraDescription camera;
 
   const SessionFragment(
-      {super.key, required this.scopeDao, required this.targetDao});
+      {super.key,
+      required this.scopeDao,
+      required this.targetDao,
+      required this.camera});
 
   @override
   State<StatefulWidget> createState() => _SessionFragmentState();
@@ -21,14 +27,17 @@ class _SessionFragmentState extends State<SessionFragment> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.all(16),
         child: StreamBuilder(
           stream: widget.scopeDao.findAll(),
           builder: (_, scopesSnapshot) {
+            if (!scopesSnapshot.hasData) {
+              return Container();
+            }
             return StreamBuilder(
               stream: widget.targetDao.findAll(),
               builder: (_, targetsSnapshot) {
-                if (!scopesSnapshot.hasData || !targetsSnapshot.hasData) {
+                if (!targetsSnapshot.hasData) {
                   return Container();
                 }
                 final scopes = scopesSnapshot.requireData;
@@ -36,6 +45,8 @@ class _SessionFragmentState extends State<SessionFragment> {
                 if (scopes.isEmpty || targets.isEmpty) {
                   return _buildHelp(context);
                 }
+                _selectedScope = scopes.first;
+                _selectedTarget = targets.first;
                 return _buildForm(context, scopes, targets);
               },
             );
@@ -74,7 +85,7 @@ class _SessionFragmentState extends State<SessionFragment> {
                 labelText: "Scope",
                 border: OutlineInputBorder(),
                 helperText: ""),
-            value: scopes.first,
+            value: _selectedScope,
             items: scopes
                 .map((e) => DropdownMenuItem(value: e, child: Text(e.name)))
                 .toList(),
@@ -98,7 +109,7 @@ class _SessionFragmentState extends State<SessionFragment> {
                 labelText: "Target",
                 border: OutlineInputBorder(),
                 helperText: ""),
-            value: targets.first,
+            value: _selectedTarget,
             items: targets
                 .map((e) => DropdownMenuItem(value: e, child: Text(e.name)))
                 .toList(),
@@ -119,10 +130,11 @@ class _SessionFragmentState extends State<SessionFragment> {
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("TODO: Go to marking hits screen."),
-                  duration: Duration(seconds: 10),
-                ));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => MarkHitsFragment(
+                        camera: widget.camera,
+                        scope: _selectedScope!,
+                        target: _selectedTarget!)));
               }
             },
             child: const Text("Start calibration"),

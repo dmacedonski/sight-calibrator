@@ -6,10 +6,12 @@ class Target {
   final int? id;
   final String name;
   final double size;
+  final double distance;
 
-  Target(this.id, this.name, this.size);
+  Target(this.id, this.name, this.size, this.distance);
 
-  factory Target.create(String name, double size) => Target(null, name, size);
+  factory Target.create(String name, double size, double distance) =>
+      Target(null, name, size, distance);
 }
 
 @dao

@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:sight_calibrator/data/app_database.dart';
 import 'package:sight_calibrator/scopes_fragment.dart';
@@ -6,8 +7,9 @@ import 'package:sight_calibrator/targets_fragment.dart';
 
 class MainActivity extends StatefulWidget {
   final AppDatabase db;
+  final CameraDescription camera;
 
-  const MainActivity({super.key, required this.db});
+  const MainActivity({super.key, required this.db, required this.camera});
 
   @override
   State<StatefulWidget> createState() => _MainActivityState();
@@ -24,7 +26,9 @@ class _MainActivityState extends State<MainActivity> {
       ),
       body: <Widget>[
         SessionFragment(
-            scopeDao: widget.db.scopeDao, targetDao: widget.db.targetDao),
+            scopeDao: widget.db.scopeDao,
+            targetDao: widget.db.targetDao,
+            camera: widget.camera),
         ScopesFragment(scopeDao: widget.db.scopeDao),
         TargetsFragment(targetDao: widget.db.targetDao),
       ][_selectedFragmentIndex],

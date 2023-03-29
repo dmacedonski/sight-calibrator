@@ -89,7 +89,7 @@ class _$AppDatabase extends AppDatabase {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `Scope` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `inchesPerClick` REAL NOT NULL, `forDistance` REAL NOT NULL)');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Target` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `size` REAL NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `Target` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `size` REAL NOT NULL, `distance` REAL NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -179,7 +179,8 @@ class _$TargetDao extends TargetDao {
             (Target item) => <String, Object?>{
                   'id': item.id,
                   'name': item.name,
-                  'size': item.size
+                  'size': item.size,
+                  'distance': item.distance
                 },
             changeListener),
         _targetDeletionAdapter = DeletionAdapter(
@@ -189,7 +190,8 @@ class _$TargetDao extends TargetDao {
             (Target item) => <String, Object?>{
                   'id': item.id,
                   'name': item.name,
-                  'size': item.size
+                  'size': item.size,
+                  'distance': item.distance
                 },
             changeListener);
 
@@ -207,7 +209,10 @@ class _$TargetDao extends TargetDao {
   Stream<List<Target>> findAll() {
     return _queryAdapter.queryListStream('SELECT * FROM Target',
         mapper: (Map<String, Object?> row) => Target(
-            row['id'] as int?, row['name'] as String, row['size'] as double),
+            row['id'] as int?,
+            row['name'] as String,
+            row['size'] as double,
+            row['distance'] as double),
         queryableName: 'Target',
         isView: false);
   }
