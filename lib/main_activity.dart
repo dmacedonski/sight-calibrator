@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sight_calibrator/data/app_database.dart';
 import 'package:sight_calibrator/scopes_fragment.dart';
+import 'package:sight_calibrator/session_fragment.dart';
 import 'package:sight_calibrator/targets_fragment.dart';
 
 class MainActivity extends StatefulWidget {
@@ -22,7 +23,8 @@ class _MainActivityState extends State<MainActivity> {
         title: const Text("Sight Calibrator"),
       ),
       body: <Widget>[
-        const Text("Session"),
+        SessionFragment(
+            scopeDao: widget.db.scopeDao, targetDao: widget.db.targetDao),
         ScopesFragment(scopeDao: widget.db.scopeDao),
         TargetsFragment(targetDao: widget.db.targetDao),
       ][_selectedFragmentIndex],
