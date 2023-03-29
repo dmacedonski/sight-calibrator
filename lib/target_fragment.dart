@@ -38,6 +38,7 @@ class _TargetFragmentState extends State<TargetFragment> {
                       }
                       return null;
                     },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
                   const SizedBox(height: 6),
                   TextFormField(
@@ -58,6 +59,7 @@ class _TargetFragmentState extends State<TargetFragment> {
                       }
                       return null;
                     },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
                   const SizedBox(height: 6),
                   ElevatedButton.icon(

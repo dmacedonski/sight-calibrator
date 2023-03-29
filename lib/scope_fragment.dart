@@ -39,6 +39,7 @@ class _ScopeFragmentState extends State<ScopeFragment> {
                       }
                       return null;
                     },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
                   const SizedBox(height: 6),
                   TextFormField(
@@ -59,6 +60,7 @@ class _ScopeFragmentState extends State<ScopeFragment> {
                       }
                       return null;
                     },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
                   const SizedBox(height: 6),
                   TextFormField(
@@ -79,6 +81,7 @@ class _ScopeFragmentState extends State<ScopeFragment> {
                       }
                       return null;
                     },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
                   const SizedBox(height: 6),
                   ElevatedButton.icon(
