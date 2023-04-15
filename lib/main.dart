@@ -23,7 +23,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Sight Calibrator',
-      theme: ThemeData(colorSchemeSeed: Colors.indigo, useMaterial3: true),
+      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.indigo),
+      darkTheme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.indigo, brightness: Brightness.dark),
+      themeMode: ThemeMode.system,
       home: MainActivity(db: db, camera: camera),
     );
   }
