@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sight_calibrator/data/app_database.dart';
 import 'package:sight_calibrator/main_activity.dart';
 
@@ -38,6 +39,9 @@ class MyApp extends StatelessWidget {
                 brightness: Brightness.dark),
             themeMode: appSettings.themeMode,
             home: MainActivity(db: db, camera: camera),
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: appSettings.locale,
           );
         });
   }

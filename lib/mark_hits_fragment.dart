@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sight_calibrator/data/scope.dart';
 import 'package:sight_calibrator/data/target.dart';
 import 'package:sight_calibrator/session_summary_fragment.dart';
@@ -78,7 +79,7 @@ class _MarkHitsFragmentState extends State<MarkHitsFragment> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         ElevatedButton(
-                          child: const Text("Clear"),
+                          child: Text(AppLocalizations.of(context)!.clear),
                           onPressed: () {
                             setState(() {
                               _points.clear();
@@ -86,13 +87,14 @@ class _MarkHitsFragmentState extends State<MarkHitsFragment> {
                           },
                         ),
                         ElevatedButton(
-                          child: const Text("Show result"),
+                          child: Text(AppLocalizations.of(context)!.showResult),
                           onPressed: () {
                             if (_points.length < 3) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content:
-                                          Text("Mark at least three points.")));
+                                  SnackBar(
+                                      content: Text(
+                                          AppLocalizations.of(context)!
+                                              .markAtLeastThreePoints)));
                             } else {
                               final screenSize =
                                   MediaQuery.of(context).size.width;

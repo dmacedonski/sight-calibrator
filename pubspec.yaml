@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   camera: ^0.10.3+2
   path_provider: ^2.0.14
   path: ^1.8.2
@@ -17,6 +19,7 @@ dependencies:
   floor: ^1.4.1
   sqflite: ^2.2.6
   shared_preferences: ^2.1.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
@@ -28,6 +31,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
 
 flutter_icons:
   android: "launcher_icon"
