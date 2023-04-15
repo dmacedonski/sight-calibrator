@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:sight_calibrator/data/app_database.dart';
 import 'package:sight_calibrator/main_activity.dart';
 
+import 'app_settings.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final db =
@@ -10,6 +12,8 @@ Future<void> main() async {
   final cameras = await availableCameras();
   final camera = cameras.firstWhere(
       (element) => element.lensDirection == CameraLensDirection.back);
+  final AppSettings appSettings = AppSettings.getInstance();
+  appSettings.load();
   runApp(MyApp(db: db, camera: camera));
 }
 
@@ -21,12 +25,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Sight Calibrator',
-      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.indigo),
-      darkTheme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.indigo, brightness: Brightness.dark),
-      themeMode: ThemeMode.system,
-      home: MainActivity(db: db, camera: camera),
-    );
+    return ValueListenableBuilder(
+        valueListenable: AppSettings.getInstance(),
+        builder: (context, appSettings, widget) {
+          return MaterialApp(
+            title: 'Sight Calibrator',
+            theme:
+                ThemeData(useMaterial3: true, colorSchemeSeed: Colors.indigo),
+            darkTheme: ThemeData(
+                useMaterial3: true,
+                colorSchemeSeed: Colors.indigo,
+                brightness: Brightness.dark),
+            themeMode: appSettings.themeMode,
+            home: MainActivity(db: db, camera: camera),
+          );
+        });
   }
 }
