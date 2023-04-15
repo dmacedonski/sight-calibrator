@@ -69,7 +69,6 @@ class _SessionFragmentState extends State<SessionFragment> {
         Text(AppLocalizations.of(context)!.startSessionInstruction7),
         Text(AppLocalizations.of(context)!.startSessionInstruction8),
         Text(AppLocalizations.of(context)!.startSessionInstruction9),
-        Text(AppLocalizations.of(context)!.startSessionInstruction10),
       ],
     );
   }
