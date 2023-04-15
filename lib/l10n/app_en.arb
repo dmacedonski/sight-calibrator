@@ -44,5 +44,6 @@
   "target": "Target",
   "theme": "Theme",
   "diameterOfTheTarget": "Diameter of the target (inches)",
-  "distanceToTarget": "Distance to target (yards)"
+  "distanceToTarget": "Distance to target (yards)",
+  "language": "Language"
 }

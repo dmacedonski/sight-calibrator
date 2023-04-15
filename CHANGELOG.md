@@ -14,3 +14,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Theme settings.
 - Localization for English.
 - Localization for Polish.
+- Language settings.

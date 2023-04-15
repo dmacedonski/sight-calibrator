@@ -44,5 +44,6 @@
   "target": "Cel",
   "theme": "Motyw",
   "diameterOfTheTarget": "Średnica celu (cale)",
-  "distanceToTarget": "Dystans do celu (jardy)"
+  "distanceToTarget": "Dystans do celu (jardy)",
+  "language": "Język"
 }

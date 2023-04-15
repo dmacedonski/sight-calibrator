@@ -20,6 +20,15 @@ class AppSettings extends ChangeNotifier
     notifyListeners();
   }
 
+  Locale? _locale;
+
+  Locale? get locale => _locale;
+
+  set locale(Locale? value) {
+    _locale = value;
+    notifyListeners();
+  }
+
   Future<void> load() async {
     final prefs = await SharedPreferences.getInstance();
     switch (prefs.getInt("theme_mode")) {
@@ -33,6 +42,8 @@ class AppSettings extends ChangeNotifier
         _themeMode = ThemeMode.system;
         break;
     }
+    final languageCode = prefs.getString("locale");
+    _locale = languageCode == null ? null : Locale(languageCode);
     notifyListeners();
   }
 
@@ -48,6 +59,11 @@ class AppSettings extends ChangeNotifier
       default:
         prefs.setInt("theme_mode", 0);
         break;
+    }
+    if (locale == null) {
+      prefs.remove("locale");
+    } else {
+      prefs.setString("locale", locale!.languageCode);
     }
   }
 
