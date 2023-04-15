@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SessionSummaryFragment extends StatefulWidget {
   final int verticalClicks;
@@ -17,21 +18,29 @@ class _SessionSummaryFragmentState extends State<SessionSummaryFragment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Summary")),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.summary)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("Vertical", style: TextStyle(fontSize: 24)),
+            Text(AppLocalizations.of(context)!.vertical,
+                style: const TextStyle(fontSize: 24)),
             Text(widget.verticalClicks.abs().toString(),
                 style: const TextStyle(fontSize: 48)),
-            Text("clicks ${widget.verticalClicks > 0 ? "up" : "down"}",
+            Text(
+                widget.verticalClicks > 0
+                    ? AppLocalizations.of(context)!.clicksUp
+                    : AppLocalizations.of(context)!.clicksDown,
                 style: const TextStyle(fontSize: 24)),
             const SizedBox(height: 48),
-            const Text("Horizontal", style: TextStyle(fontSize: 24)),
+            Text(AppLocalizations.of(context)!.horizontal,
+                style: const TextStyle(fontSize: 24)),
             Text(widget.horizontalClicks.abs().toString(),
                 style: const TextStyle(fontSize: 48)),
-            Text("clicks ${widget.horizontalClicks > 0 ? "left" : "right"}",
+            Text(
+                widget.horizontalClicks > 0
+                    ? AppLocalizations.of(context)!.clicksLeft
+                    : AppLocalizations.of(context)!.clicksRight,
                 style: const TextStyle(fontSize: 24)),
           ],
         ),

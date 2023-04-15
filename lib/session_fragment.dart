@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sight_calibrator/data/scope.dart';
 import 'package:sight_calibrator/data/target.dart';
 import 'package:sight_calibrator/mark_hits_fragment.dart';
@@ -57,18 +58,18 @@ class _SessionFragmentState extends State<SessionFragment> {
   Widget _buildHelp(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        Text("To start session you must:"),
-        Text("1. Add some scope."),
-        Text("2. Add some target."),
-        Text("3. Select scope and target on this screen."),
-        Text("4. Shoot a few times to target."),
-        Text("5. Shoot a few times to target."),
-        Text("6. Click \"start calibration\"."),
-        Text("7. Point the camera at the target and mark the hits."),
-        Text("8. Click \"show result\"."),
-        Text("9. Calibrate your scope."),
-        Text("10. Repeat steps 4 - 9 if needed."),
+      children: [
+        Text(AppLocalizations.of(context)!.startSessionInstruction0),
+        Text(AppLocalizations.of(context)!.startSessionInstruction1),
+        Text(AppLocalizations.of(context)!.startSessionInstruction2),
+        Text(AppLocalizations.of(context)!.startSessionInstruction3),
+        Text(AppLocalizations.of(context)!.startSessionInstruction4),
+        Text(AppLocalizations.of(context)!.startSessionInstruction5),
+        Text(AppLocalizations.of(context)!.startSessionInstruction6),
+        Text(AppLocalizations.of(context)!.startSessionInstruction7),
+        Text(AppLocalizations.of(context)!.startSessionInstruction8),
+        Text(AppLocalizations.of(context)!.startSessionInstruction9),
+        Text(AppLocalizations.of(context)!.startSessionInstruction10),
       ],
     );
   }
@@ -81,9 +82,9 @@ class _SessionFragmentState extends State<SessionFragment> {
         children: [
           DropdownButtonFormField(
             icon: const Icon(Icons.arrow_drop_down_rounded),
-            decoration: const InputDecoration(
-                labelText: "Scope",
-                border: OutlineInputBorder(),
+            decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.scope,
+                border: const OutlineInputBorder(),
                 helperText: ""),
             value: _selectedScope,
             items: scopes
@@ -97,7 +98,7 @@ class _SessionFragmentState extends State<SessionFragment> {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (Scope? scope) {
               if (scope == null) {
-                return "Field is required.";
+                return AppLocalizations.of(context)!.fieldIsRequired;
               }
               return null;
             },
@@ -105,9 +106,9 @@ class _SessionFragmentState extends State<SessionFragment> {
           const SizedBox(height: 6),
           DropdownButtonFormField(
             icon: const Icon(Icons.arrow_drop_down_rounded),
-            decoration: const InputDecoration(
-                labelText: "Target",
-                border: OutlineInputBorder(),
+            decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.target,
+                border: const OutlineInputBorder(),
                 helperText: ""),
             value: _selectedTarget,
             items: targets
@@ -121,7 +122,7 @@ class _SessionFragmentState extends State<SessionFragment> {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (Target? target) {
               if (target == null) {
-                return "Field is required.";
+                return AppLocalizations.of(context)!.fieldIsRequired;
               }
               return null;
             },
@@ -137,7 +138,7 @@ class _SessionFragmentState extends State<SessionFragment> {
                         target: _selectedTarget!)));
               }
             },
-            child: const Text("Start calibration"),
+            child: Text(AppLocalizations.of(context)!.startCalibration),
           )
         ],
       ),

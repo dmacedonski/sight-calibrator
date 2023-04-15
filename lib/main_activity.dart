@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sight_calibrator/data/app_database.dart';
 import 'package:sight_calibrator/scopes_fragment.dart';
 import 'package:sight_calibrator/session_fragment.dart';
@@ -29,10 +30,10 @@ class _MainActivityState extends State<MainActivity> {
             itemBuilder: (context) => <PopupMenuEntry<int>>[
               PopupMenuItem(
                 value: 0,
-                child: Row(children: const [
-                  Icon(Icons.settings_rounded),
-                  SizedBox(width: 12),
-                  Text("Settings")
+                child: Row(children: [
+                  const Icon(Icons.settings_rounded),
+                  const SizedBox(width: 12),
+                  Text(AppLocalizations.of(context)!.settings)
                 ]),
               )
             ],
@@ -56,13 +57,16 @@ class _MainActivityState extends State<MainActivity> {
         TargetsFragment(targetDao: widget.db.targetDao)
       ][_selectedFragmentIndex],
       bottomNavigationBar: NavigationBar(
-        destinations: const <Widget>[
+        destinations: <Widget>[
           NavigationDestination(
-              icon: Icon(Icons.grain_rounded), label: "Session"),
+              icon: const Icon(Icons.grain_rounded),
+              label: AppLocalizations.of(context)!.session),
           NavigationDestination(
-              icon: Icon(Icons.location_searching_rounded), label: "Scopes"),
+              icon: const Icon(Icons.location_searching_rounded),
+              label: AppLocalizations.of(context)!.scopes),
           NavigationDestination(
-              icon: Icon(Icons.radio_button_checked_rounded), label: "Targets"),
+              icon: const Icon(Icons.radio_button_checked_rounded),
+              label: AppLocalizations.of(context)!.targets),
         ],
         selectedIndex: _selectedFragmentIndex,
         onDestinationSelected: (int index) {

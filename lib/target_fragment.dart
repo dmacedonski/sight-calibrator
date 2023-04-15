@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sight_calibrator/data/target.dart';
 
 class TargetFragment extends StatefulWidget {
@@ -19,7 +20,7 @@ class _TargetFragmentState extends State<TargetFragment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("New target")),
+        appBar: AppBar(title: Text(AppLocalizations.of(context)!.newTarget)),
         body: Form(
             key: _formKey,
             child: Padding(
@@ -29,13 +30,14 @@ class _TargetFragmentState extends State<TargetFragment> {
                   TextFormField(
                     controller: _nameController,
                     textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(
-                        labelText: "Name", border: OutlineInputBorder()),
+                    decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.name,
+                        border: const OutlineInputBorder()),
                     maxLength: 50,
                     maxLines: 1,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return "Field is required.";
+                        return AppLocalizations.of(context)!.fieldIsRequired;
                       }
                       return null;
                     },
@@ -45,18 +47,19 @@ class _TargetFragmentState extends State<TargetFragment> {
                   TextFormField(
                     controller: _sizeController,
                     textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(
-                        labelText: "Diameter of the target (inches)",
-                        border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                        labelText:
+                            AppLocalizations.of(context)!.diameterOfTheTarget,
+                        border: const OutlineInputBorder(),
                         helperText: ""),
                     maxLines: 1,
                     keyboardType: TextInputType.number,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return "Field is required.";
+                        return AppLocalizations.of(context)!.fieldIsRequired;
                       }
                       if (!RegExp(r"^(\d+\.)?\d+$").hasMatch(value)) {
-                        return "Invalid number.";
+                        return AppLocalizations.of(context)!.invalidNumber;
                       }
                       return null;
                     },
@@ -66,18 +69,19 @@ class _TargetFragmentState extends State<TargetFragment> {
                   TextFormField(
                     controller: _distanceController,
                     textInputAction: TextInputAction.done,
-                    decoration: const InputDecoration(
-                        labelText: "Distance to target (yards)",
-                        border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                        labelText:
+                            AppLocalizations.of(context)!.distanceToTarget,
+                        border: const OutlineInputBorder(),
                         helperText: ""),
                     maxLines: 1,
                     keyboardType: TextInputType.number,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return "Field is required.";
+                        return AppLocalizations.of(context)!.fieldIsRequired;
                       }
                       if (!RegExp(r"^(\d+\.)?\d+$").hasMatch(value)) {
-                        return "Invalid number.";
+                        return AppLocalizations.of(context)!.invalidNumber;
                       }
                       return null;
                     },
@@ -97,7 +101,7 @@ class _TargetFragmentState extends State<TargetFragment> {
                       }
                     },
                     icon: const Icon(Icons.done),
-                    label: const Text("Save"),
+                    label: Text(AppLocalizations.of(context)!.save),
                   )
                 ],
               ),
