@@ -45,5 +45,10 @@
   "theme": "Theme",
   "diameterOfTheTarget": "Diameter of the target (inches)",
   "distanceToTarget": "Distance to target (yards)",
-  "language": "Language"
+  "language": "Language",
+  "aboutApplication": "About application",
+  "applicationDescription": "The app will help you calibrate your optical sights. Thanks to the use of the camera, you can easily determine hits on the target, and the application will count for you the number of clicks needed to reset the crosshairs.",
+  "createdBy": "Created by:",
+  "translatedBy": "Translated by:",
+  "artworkBy": "Artwork by:"
 }

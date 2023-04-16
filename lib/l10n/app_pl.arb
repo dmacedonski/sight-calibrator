@@ -45,5 +45,10 @@
   "theme": "Motyw",
   "diameterOfTheTarget": "Średnica celu (cale)",
   "distanceToTarget": "Dystans do celu (jardy)",
-  "language": "Język"
+  "language": "Język",
+  "aboutApplication": "O aplikacji",
+  "applicationDescription": "Aplikacja pomoże Ci w kalibracji celowników optycznych. Dzięki wykorzystaniu aparatu łatwo określisz trafienia w cel, a aplikacja policzy za ciebie ilości kliknięć potrzebnych do wyzerowania celownika.",
+  "createdBy": "Autor:",
+  "translatedBy": "Tłumaczenia:",
+  "artworkBy": "Grafika:"
 }
