@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sight_calibrator/data/scope.dart';
 import 'package:sight_calibrator/scope_fragment.dart';
 
@@ -21,14 +22,14 @@ class _ScopesFragmentState extends State<ScopesFragment> {
           if (!snapshot.hasData) {
             return Container(
               alignment: Alignment.topCenter,
-              child: const Text("Nothing to display, add scope first."),
+              child: Text(AppLocalizations.of(context)!.emptyScopesList),
             );
           }
           final scopes = snapshot.requireData;
           if (scopes.isEmpty) {
             return Container(
               alignment: Alignment.topCenter,
-              child: const Text("Nothing to display, add scope first."),
+              child: Text(AppLocalizations.of(context)!.emptyScopesList),
             );
           }
           return ListView.builder(
@@ -49,8 +50,9 @@ class _ScopesFragmentState extends State<ScopesFragment> {
                     },
                     child: ListTile(
                         title: Text(scopes[index].name),
-                        subtitle: Text(
-                            "One click: ${scopes[index].inchesPerClick} inches at ${scopes[index].forDistance} yards.")));
+                        subtitle: Text(AppLocalizations.of(context)!
+                            .scopeDescription(scopes[index].forDistance,
+                                scopes[index].inchesPerClick))));
               });
         },
       ),

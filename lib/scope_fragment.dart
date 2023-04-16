@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sight_calibrator/data/scope.dart';
 
 class ScopeFragment extends StatefulWidget {
@@ -19,7 +20,7 @@ class _ScopeFragmentState extends State<ScopeFragment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("New scope")),
+        appBar: AppBar(title: Text(AppLocalizations.of(context)!.newScope)),
         body: Form(
             key: _formKey,
             child: Padding(
@@ -29,13 +30,14 @@ class _ScopeFragmentState extends State<ScopeFragment> {
                   TextFormField(
                     controller: _nameController,
                     textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(
-                        labelText: "Name", border: OutlineInputBorder()),
+                    decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.name,
+                        border: const OutlineInputBorder()),
                     maxLength: 50,
                     maxLines: 1,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return "Field is required.";
+                        return AppLocalizations.of(context)!.fieldIsRequired;
                       }
                       return null;
                     },
@@ -45,18 +47,18 @@ class _ScopeFragmentState extends State<ScopeFragment> {
                   TextFormField(
                     controller: _inchesPerClickController,
                     textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(
-                        labelText: "Inches per click",
-                        border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.inchesPerClick,
+                        border: const OutlineInputBorder(),
                         helperText: ""),
                     maxLines: 1,
                     keyboardType: TextInputType.number,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return "Field is required.";
+                        return AppLocalizations.of(context)!.fieldIsRequired;
                       }
                       if (!RegExp(r"^(\d+\.)?\d+$").hasMatch(value)) {
-                        return "Invalid number.";
+                        return AppLocalizations.of(context)!.invalidNumber;
                       }
                       return null;
                     },
@@ -66,18 +68,18 @@ class _ScopeFragmentState extends State<ScopeFragment> {
                   TextFormField(
                     controller: _forDistanceController,
                     textInputAction: TextInputAction.done,
-                    decoration: const InputDecoration(
-                        labelText: "For distance (yards)",
-                        border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.forDistance,
+                        border: const OutlineInputBorder(),
                         helperText: ""),
                     maxLines: 1,
                     keyboardType: TextInputType.number,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return "Field is required.";
+                        return AppLocalizations.of(context)!.fieldIsRequired;
                       }
                       if (!RegExp(r"^(\d+\.)?\d+$").hasMatch(value)) {
-                        return "Invalid number.";
+                        return AppLocalizations.of(context)!.invalidNumber;
                       }
                       return null;
                     },
@@ -97,7 +99,7 @@ class _ScopeFragmentState extends State<ScopeFragment> {
                       }
                     },
                     icon: const Icon(Icons.done),
-                    label: const Text("Save"),
+                    label: Text(AppLocalizations.of(context)!.save),
                   )
                 ],
               ),

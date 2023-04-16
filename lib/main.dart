@@ -1,7 +1,11 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sight_calibrator/data/app_database.dart';
 import 'package:sight_calibrator/main_activity.dart';
+
+import 'app_settings.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,21 +14,43 @@ Future<void> main() async {
   final cameras = await availableCameras();
   final camera = cameras.firstWhere(
       (element) => element.lensDirection == CameraLensDirection.back);
-  runApp(MyApp(db: db, camera: camera));
+  final AppSettings appSettings = AppSettings.getInstance();
+  appSettings.load();
+  PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  runApp(MyApp(db: db, camera: camera, packageInfo: packageInfo));
 }
 
 class MyApp extends StatelessWidget {
   final AppDatabase db;
   final CameraDescription camera;
+  final PackageInfo packageInfo;
 
-  const MyApp({super.key, required this.db, required this.camera});
+  const MyApp(
+      {super.key,
+      required this.db,
+      required this.camera,
+      required this.packageInfo});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Sight Calibrator',
-      theme: ThemeData(colorSchemeSeed: Colors.indigo, useMaterial3: true),
-      home: MainActivity(db: db, camera: camera),
-    );
+    return ValueListenableBuilder(
+        valueListenable: AppSettings.getInstance(),
+        builder: (context, appSettings, widget) {
+          return MaterialApp(
+            title: 'Sight Calibrator',
+            theme:
+                ThemeData(useMaterial3: true, colorSchemeSeed: Colors.indigo),
+            darkTheme: ThemeData(
+                useMaterial3: true,
+                colorSchemeSeed: Colors.indigo,
+                brightness: Brightness.dark),
+            themeMode: appSettings.themeMode,
+            home:
+                MainActivity(db: db, camera: camera, packageInfo: packageInfo),
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: appSettings.locale,
+          );
+        });
   }
 }

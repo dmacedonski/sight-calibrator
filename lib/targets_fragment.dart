@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sight_calibrator/target_fragment.dart';
 
 import 'data/target.dart';
@@ -22,14 +23,14 @@ class _TargetsFragmentState extends State<TargetsFragment> {
           if (!snapshot.hasData) {
             return Container(
               alignment: Alignment.topCenter,
-              child: const Text("Nothing to display, add target first."),
+              child: Text(AppLocalizations.of(context)!.emptyTargetsList),
             );
           }
           final targets = snapshot.requireData;
           if (targets.isEmpty) {
             return Container(
               alignment: Alignment.topCenter,
-              child: const Text("Nothing to display, add target first."),
+              child: Text(AppLocalizations.of(context)!.emptyTargetsList),
             );
           }
           return ListView.builder(
@@ -50,8 +51,9 @@ class _TargetsFragmentState extends State<TargetsFragment> {
                     },
                     child: ListTile(
                         title: Text(targets[index].name),
-                        subtitle: Text(
-                            "Target with diameter ${targets[index].size} inches for distance ${targets[index].distance} yards.")));
+                        subtitle: Text(AppLocalizations.of(context)!
+                            .targetDescription(targets[index].distance,
+                                targets[index].size))));
               });
         },
       ),
