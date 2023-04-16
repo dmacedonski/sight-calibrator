@@ -14,6 +14,20 @@ After updated or added translations run the following command in the terminal.
 flutter gen-l10n
 ```
 
+### Build
+
+#### Build bundle
+
+```shell
+flutter build appbundle
+```
+
+#### Build APK
+
+```shell
+flutter build apk
+```
+
 ## License
 
 This project is licensed under the MIT license. Full license text you can find [here](LICENSE.txt).

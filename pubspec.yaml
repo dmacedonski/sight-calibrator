@@ -2,7 +2,7 @@ name: sight_calibrator
 description: Application for calibration of your Red Dot Sight, Holographic Sight, Scope and other.
 publish_to: 'none'
 
-version: 1.0.0
+version: 1.1.0
 
 environment:
   sdk: '>=2.19.5 <3.0.0'
